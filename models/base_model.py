@@ -3,7 +3,6 @@
 from uuid import uuid4
 from datetime import datetime
 import models
-# from models import storage
 
 class BaseModel:
     """Defines all common attributes/methods for other classes"""
@@ -30,7 +29,7 @@ class BaseModel:
     def save(self):
         """Update updated_at attribute with current datetime"""
         self.updated_at = datetime.now()
-        # storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """Return a dictionary representation of the BaseModel instance"""
