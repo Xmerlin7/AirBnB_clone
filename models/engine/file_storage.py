@@ -39,12 +39,30 @@ class FileStorage:
         for key, value in all_obj.items():
             obj_dict[key] = value.to_dict()  # Correctly calling the to_dict method
         
-        with open(FileStorage.__file_path, 'w', encoding='utf-8') as f:
-            json.dump(obj_dict, f)  # Writing the dictionary to a JSON file
+        with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
+            json.dump(obj_dict, file)  # Writing the dictionary to a JSON file
 
     def reload(self):
         """
         This method deserializes the JSON file
         """
         if os.path.isfile(FileStorage.__file_path):
-            
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as file:
+                try:
+                    obj_dict = json.load(file)
+                    for key, value in obj_dict.items():
+                        class_name = key.split('.')[0]
+                        id = key.split('.')[1]
+                        cls = eval(class_name)
+                        instance = cls(**value)
+                        FileStorage.__objects = instance
+                    # for key, value in obj_dict.items():
+                    #     class_name, obj_id = key.split('.')
+
+                    #     cls = eval(class_name)
+
+                    #     instance = cls(**value)
+
+                    #     FileStorage.__objects[key] = instance                    
+                except FileNotFoundError:
+                    pass
