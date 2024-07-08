@@ -8,10 +8,11 @@ class BaseModel():
     
     def __init__(self, *args, **kwargs):
         """Defines all common attributes/methods for other classes"""
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    value = datetime.strptime(value, time_format)
                 if key != "__class__":
                     setattr(self, key, value)
         else:
