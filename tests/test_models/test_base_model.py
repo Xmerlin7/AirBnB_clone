@@ -19,7 +19,12 @@ class TestBaseModel(unittest.TestCase):
         Test for save method
         """
         base_model = BaseModel()
-        self.assertIsNotNone(base_model.save(), base_model.updated_at)
+        self.assertNotEqual(base_model.save(), base_model.updated_at)
 
-    
+    def test_dict(self):
+        base_model = BaseModel()
+        base_model_dict = BaseModel.to_dict()
+        self.assertIsInstance(base_model, base_model_dict)
+        self
+
     
