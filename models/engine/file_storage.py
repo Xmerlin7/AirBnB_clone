@@ -52,10 +52,12 @@ class FileStorage:
                     obj_dict = json.load(file)
                     for key, value in obj_dict.items():
                         class_name = key.split('.')[0]
-                        id = key.split('.')[1]
-                        cls = eval(class_name)
-                        instance = cls(**value)
-                        FileStorage.__objects = instance
+                        if class_name == "BaseModel":
+                            instance = BaseModel(**value)
+                        else:
+                            # Handle other classes if needed
+                            pass
+                        FileStorage.__objects[key] = instance
                     # for key, value in obj_dict.items():
                     #     class_name, obj_id = key.split('.')
 
