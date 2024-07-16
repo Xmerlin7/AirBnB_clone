@@ -116,6 +116,43 @@ class HBNBCommand(cmd.Cmd):
                     print(str(value))
         else:
             print("** class doesn't exist **")
-            
+
+
+    def do_update(self, arg):
+        """
+        Update an instance by adding or updating an attribute.
+        Usage: update <class_name> <id> <attribute_name> "<attribute_value>"
+        """
+        command = shlex.split(arg)
+
+        if len(command) == 0:
+            print("** class name missing **")
+        elif command[0] not in self.valid_classes:
+            print("** class doesn't exist **")
+        elif len(command) < 2:
+            print("** instance id missing **")
+        else:
+            objects = storage.all()
+            key = "{}.{}".format(command[0], command[1])
+            if key not in objects:
+                print("** no instance found **")
+            elif len(command) < 3:
+                print("** attribute name missing **")
+            elif len(command) < 4:
+                print("** value missing **")
+            else:
+                #if
+                
+                
+                #else
+                setattr(objects, command[2], command[3])
+                storage.save()
+
+    def default(self, line):
+        """
+        Default behavior for cmd module when input is invalid
+        """
+        line_list = line.split('.')
+        cls_nm
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
