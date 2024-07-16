@@ -15,12 +15,20 @@ class HBNBCommand(cmd.Cmd):
         return super().do_help(arg)
 
     def do_EOF(self, line):
-        "EXIT"
+        """Handles End Of File character.
+        """
+        print()
         return True
 
-    def do_quit(Self, line):
-        "EXIT"
+    def do_quit(self, line):
+        """Exits the program.
+        """
         return True
+
+    def emptyline(self):
+        """Doesn't do anything on ENTER.
+        """
+        pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
