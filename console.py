@@ -159,22 +159,24 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
-    def do_destroy(self, line ):
+    def do_destroy(self, arg):
         """
-        Deletes an instance based on the class name and `id`
+        Delete an instance based on the class name and id.
+        Usage: destroy <class_name> <id>
         """
-        command = shlex.split(line)
-        if len(command) == 0:
+        commands = shlex.split(arg)
+
+        if len(commands) == 0:
             print("** class name missing **")
-        elif command[0] not in self.valid_classes:
+        elif commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
-        elif len(command) < 2:
+        elif len(commands) < 2:
             print("** instance id missing **")
-        else: 
-            obj = storage.all()
-            key = "{}.{}".format(command[0], command[1])
-            if key in obj.items():
-                del obj[key]
+        else:
+            objects = storage.all()
+            key = "{}.{}".format(commands[0], commands[1])
+            if key in objects:
+                del objects[key]
                 storage.save()
             else:
                 print("** no instance found **")
