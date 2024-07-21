@@ -181,24 +181,25 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    def do_all(self, line):
+    def do_all(self, arg):
         """
         Print the string representation of all instances or a specific class.
         Usage: <User>.all()
                 <User>.show()
         """
-        obj = storage.all()
-        command = shlex.split(line)
+        objects = storage.all()
 
-        if len(command) == 0:
-            for key, value in obj.items():
+        commands = shlex.split(arg)
+
+        if len(commands) == 0:
+            for key, value in objects.items():
                 print(str(value))
-        elif command[0] in self.valid_classes:
-            for key, value in obj.items():
-                if key.split(".")[0] == command[0]:
-                    print(str(value))
-        else:
+        elif commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
+        else:
+            for key, value in objects.items():
+                if key.split('.')[0] == commands[0]:
+                    print(str(value))
 
     def do_update(self, arg):
         """
