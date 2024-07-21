@@ -153,6 +153,6 @@ class HBNBCommand(cmd.Cmd):
         Default behavior for cmd module when input is invalid
         """
         line_list = line.split('.')
-        cls_nm
+        cls_nm = line_list[0]
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
